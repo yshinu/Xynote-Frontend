@@ -2,11 +2,11 @@
     <el-button text @click="dialogFormVisible=true" :digv="dialogFormVisible">
         +新增笔记本
     </el-button>
-    {{bookList.notebooklist}}
+  {{ bookList.notebooklist }}
     <el-dialog v-model="dialogFormVisible" title="请输入笔记本名称" center>
         <el-form :model="form">
-            <el-form-item label="笔记本名称" :label-width="formLabelWidth" >
-                <el-input v-model="form.notebookName" autocomplete="off" />
+            <el-form-item label="笔记本名称" :label-width="formLabelWidth">
+                <el-input v-model="form.notebookName" autocomplete="off"/>
             </el-form-item>
         </el-form>
         <template #footer>
@@ -23,28 +23,33 @@
 import {onBeforeMount, reactive, ref} from 'vue'
 import {useBookListStore} from "../store/pinia.ts";
 import {instance} from "../../axios/http.ts";
+import {refrash} from "../hooks/reFrash.ts";
+
 const bookList = useBookListStore()
 
-onBeforeMount(()=>{
-    instance.get('/booklist').then(
-        res=> bookList.resetBookList(res.data.booklist)
-    )
+onBeforeMount(() => {
+    refrash()
 })
 
 const dialogFormVisible = ref<boolean>(false)
-const concle = ()=>{
+const concle = () => {
     dialogFormVisible.value = false
-    if (!form.notebookName){
+    if (!form.notebookName) {
         window.alert('还没有内容呢')
         return
     }
-    if (form.notebookName.length>=12){
+    if (form.notebookName.length >= 12) {
         window.alert('名字太长啦')
         return;
     }
-    instance.patch('/booklist',{
-        bookname:form.notebookName
-    }).then(res=> bookList.resetBookList(res.data.result.booklist))
+    if (Object.keys(bookList.notebooklist).some(val=> val.includes(form.notebookName))){
+        window.alert('这个名字存在了，换一个吧')
+    }else {
+        instance.patch('/booklist', {
+            bookname: form.notebookName
+        }).then(() => refrash())
+    }
+
 
 }
 const formLabelWidth = '90px'
@@ -59,6 +64,7 @@ const form = reactive({
 .el-button--text {
     margin-right: 15px;
 }
+
 .el-select {
     width: 300px;
 }

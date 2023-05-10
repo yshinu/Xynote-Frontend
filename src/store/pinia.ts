@@ -16,12 +16,12 @@ export const useBookListStore = defineStore('bookList', {
     state:()=>{
         return{
             email: 'a',
-            notebooklist:['default']
+            notebooklist:{}
         }
     },
     persist: true,
     actions:{
-        resetBookList(booklist:string[]){
+        resetBookList(booklist:any){
             this.notebooklist = booklist
         }
     }
