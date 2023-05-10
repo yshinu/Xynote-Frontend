@@ -4,7 +4,9 @@ import type {FormInstance, FormRules} from 'element-plus'
 import Button from "../share/Button.vue";
 import {useRouter} from "vue-router";
 import {instance} from "../../axios/http.ts";
+import {useLoginStore} from "../store/pinia.ts";
 const ruleFormRef = ref<FormInstance>()
+const avainfo = useLoginStore()
 const isValidEmail = function (email) {
     const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegExp.test(email);
@@ -43,11 +45,11 @@ const submitForm = (formEl: FormInstance | undefined) => {
                 if (res.data.code === '0000'){
                     localStorage.setItem('token',res.data.token)
                     window.alert('登陆成功')
+                    avainfo.email=ruleForm.email
+                    router.push('/notebooks')
                 }else {
                     window.alert(res.data.msg)
                 }
-
-
             })
         } else {
             console.log('error submit!')

@@ -3,7 +3,10 @@
 </template>
 
 <script lang="ts" setup>
-const user = {username: 'Valley'}
+import {useLoginStore} from "../store/pinia.ts";
+
+const avainfo = useLoginStore()
+const user = {username: avainfo.email}
 const slug = 'V'
 </script>
 

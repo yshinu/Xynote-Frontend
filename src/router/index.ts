@@ -2,9 +2,8 @@ import {createRouter, createWebHashHistory} from "vue-router";
 
 const routes = [
     {path: '/', redirect: '/notebooks'},
-    { path: '/login', component:()=>import('../view/login.vue'), meta:{
+    { path: '/login', component:()=>import('../view/login.vue'), name:'login',meta:{
             title:"登录页面",
-            transition:"animate__fadeInUp",
         }
     },
     { path: '/reg', component:()=>import('../view/Reg.vue') },
@@ -14,10 +13,23 @@ const routes = [
     {path: '/404',component:()=>import('../view/404.vue')},
     { path: '/:catchAll(.*)', redirect: '/404'}
 
-
 ]
 
 export const router = createRouter({
+
     history: createWebHashHistory(),
     routes,
+})
+const whilstList:Array<string> = ['login','reg']
+router.beforeEach(async (to, from) => {
+    if (whilstList.includes(<string>to.name)){
+        return true
+    }else {
+        if (!localStorage.getItem('token')){
+            return {name:'login'}
+        }else {
+            return true
+        }
+    }
+
 })

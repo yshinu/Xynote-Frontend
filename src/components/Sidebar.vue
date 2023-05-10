@@ -3,20 +3,23 @@
     <div id="sidebar">
         <avatar class="ava"></avatar>
         <div class="icons">
-          <router-link to="/note/1" title="笔记"><img src="../../public/icons/Notes.png" alt=""></router-link>
-          <router-link to="/notebooks" title="笔记本"><img src="../../public/icons/notelist.png" alt=""></router-link>
-          <router-link to="/trash/2" title="回收站"><img src="../../public/icons/shanchu.png" alt=""></router-link>
+          <router-link to="/note/1" title="笔记"><img src="/Notes.png" alt=""></router-link>
+          <router-link to="/notebooks" title="笔记本"><img src="/notelist.png" alt=""></router-link>
+          <router-link to="/trash/2" title="回收站"><img src="/shanchu.png" alt=""></router-link>
         </div>
         <div class="logout" @click="onLogout">
-            <img src="../../public/icons/tuichu.png" alt="">
+            <img src="/tuichu.png" alt="">
         </div>
       </div>
   </template>
 <script lang="ts" setup>
 import Avatar from "./Avatar.vue";
 
+import {useRouter} from "vue-router";
+const router = useRouter()
 const onLogout = ()=>{
-    console.log('退出登录');
+    localStorage.removeItem('token')
+    router.push('/login')
 }
 </script>
 
