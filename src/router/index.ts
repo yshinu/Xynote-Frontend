@@ -6,7 +6,7 @@ const routes = [
             title:"登录页面",
         }
     },
-    { path: '/reg', component:()=>import('../view/Reg.vue') },
+    { path: '/reg', name:'reg',component:()=>import('../view/Reg.vue') },
     { path: '/notebooks', component:()=>import('../view/notebooks.vue') },
     { path: '/note/:noteId', component:()=>import('../view/notedetails.vue') },
     { path: '/trash/:noteId', component:()=>import('../view/trash.vue') },
