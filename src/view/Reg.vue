@@ -40,7 +40,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
     formEl.validate( async (valid) => {
         if (valid) {
             await  instance.post('/reg', ruleForm).then(res=>{
-                localStorage.setItem('token',res.data.token)
+                console.log(res);
+                window.alert(res.data.msg)
             })
         } else {
             console.log('error submit!')

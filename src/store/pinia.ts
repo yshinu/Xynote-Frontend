@@ -26,3 +26,17 @@ export const useBookListStore = defineStore('bookList', {
         }
     }
 })
+export const useBooksStore = defineStore('books', {
+    state:()=>{
+        return{
+            email: 'a',
+            books:[]
+        }
+    },
+    persist: true,
+    actions:{
+        resetBooks(netBook:any){
+            this.books = netBook
+        }
+    }
+})

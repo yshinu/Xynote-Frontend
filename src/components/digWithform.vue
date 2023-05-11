@@ -1,5 +1,5 @@
 <template>
-    <el-button text @click="dialogFormVisible=true" :digv="dialogFormVisible">
+    <el-button text @click="dialogFormVisible=true">
         +新增笔记本
     </el-button>
   {{ bookList.notebooklist }}

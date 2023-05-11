@@ -3,7 +3,7 @@
     <div id="sidebar">
         <avatar class="ava"></avatar>
         <div class="icons">
-          <router-link to="/note/1"  title="笔记"><img src="/Notes.png" alt=""></router-link>
+          <router-link to="/note/选择笔记本开始记录/null"  title="笔记"><img src="/Notes.png" alt=""></router-link>
           <router-link to="/notebooks"  title="笔记本"><img src="/notelist.png" alt=""></router-link>
           <router-link to="/trash/2"  title="回收站"><img src="/shanchu.png" alt=""></router-link>
         </div>
