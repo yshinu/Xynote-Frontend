@@ -23,7 +23,7 @@ const validateEmail = (rule: any, value: any, callback: any) => {
     }
 }
 const validatePass = (rule: any, value: any, callback: any) => {
-    if (value === '') {
+    if (value === ''&&value) {
         callback(new Error('请输入密码'))
     } else {
         callback()

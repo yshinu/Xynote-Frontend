@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useRouter, useRoute} from 'vue-router'
-import {onMounted, reactive, ref, watch} from 'vue'
+import {nextTick, onMounted, reactive, ref, watch} from 'vue'
 import {useBookListStore, useBooksStore} from "../store/pinia.ts";
 import {instance} from "../../axios/http.ts";
 import {router} from "../router";
@@ -9,7 +9,7 @@ import axios from "axios";
 const books = useBooksStore()
 const bookList = useBookListStore()
 const route = useRoute()
-const notebookId = ref(route.params.noteId)
+const notebookId = ref(route.params.notebookName)
 const ifAdd = ref(false)
 const button = ref('添加笔记')
 const input = ref('')
@@ -37,6 +37,7 @@ onMounted(() => {
 })
 watch(route, () => {
     fetchNewBookList()
+    currentInfo.noteBookId =  route.params.noteId
 })
 const options = Object.entries(bookList.notebooklist).map(subArr => {
     return {
@@ -47,6 +48,7 @@ const options = Object.entries(bookList.notebooklist).map(subArr => {
 const selected = (val) => {
     const label = options.find(obj => obj.value === val)?.label;
     router.push(`/note/${val}/${label}`)
+
 }
 
 const addNote = () => {
@@ -118,7 +120,7 @@ const confirmDelete = () => {
             <header class="head">
                 <el-input v-show="ifAdd" v-model="input" placeholder="请输入笔记名，不要重复哦"/>
                 <div v-show="!ifAdd">
-                    <el-select v-model="notebookId" class="m-2" @change="selected" placeholder='请选择一个笔记本哦'>
+                    <el-select v-model="notebookId" class="m-2" @change="selected" placeholder='请选择一个笔记本'>
                         <el-option
                                 v-for="item in options"
                                 :key="item.value"
@@ -200,6 +202,7 @@ const confirmDelete = () => {
 
     & .main {
       margin-top: 50px;
+        overflow: hidden;
     }
   }
 }
@@ -209,6 +212,7 @@ const confirmDelete = () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 
   & li {
     text-align: center;

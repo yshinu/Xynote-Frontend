@@ -23,13 +23,15 @@ const validateEmail = (rule: any, value: any, callback: any) => {
 const validatePass = (rule: any, value: any, callback: any) => {
     if (value === '') {
         callback(new Error('请输入密码'))
+        console.log(value)
     } else {
         callback()
+
     }
 }
 const ruleForm = reactive({
-    email: '1@qq.com',
-    pass: '1'
+    email: '',
+    pass: '',
 })
 const rules = reactive<FormRules>({
     email: [{validator: validateEmail, trigger: 'blur'}],
@@ -52,6 +54,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 
 </script>
 <template>
+
     <div class="wrapper">
         <header class="head">
             <h1>欢迎使用</h1>
@@ -79,6 +82,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
                             class="input"
                     />
                 </el-form-item>
+
             </el-form>
         </main>
         <footer>

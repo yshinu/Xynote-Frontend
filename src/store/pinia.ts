@@ -1,12 +1,14 @@
 
 import { defineStore } from 'pinia'
 export const useLoginStore = defineStore('login', {
+        persist: true,
         state:()=>{
             return{
                 email: 'a',
+                isVip:false
             }
         },
-        persist: true,
+
         actions:{
         }
 
@@ -37,6 +39,20 @@ export const useBooksStore = defineStore('books', {
     actions:{
         resetBooks(netBook:any){
             this.books = netBook
+        }
+    }
+})
+export const useVipBookListsStore = defineStore('vipbooks', {
+    state:()=>{
+        return{
+            email: 'a',
+            list:[]
+        }
+    },
+    persist: true,
+    actions:{
+        resetBooks(netBook:any){
+            this.list = netBook
         }
     }
 })
